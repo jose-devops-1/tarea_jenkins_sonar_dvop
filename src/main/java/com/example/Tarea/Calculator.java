@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Tarea;
 
 public class Calculator {
 
