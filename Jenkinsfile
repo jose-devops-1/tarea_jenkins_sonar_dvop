@@ -10,7 +10,7 @@ pipeline {
     environment {
         // Ajusta con los datos de tu proyecto en SonarCloud
         SONAR_PROJECT_KEY = 'tarea-jenkins-sonar-devops'        // Clave del proyecto que creaste en SonarCloud
-        SONAR_ORGANIZATION = 'tarea_jenkins_sonar_devops'              // Nombre de tu organización en SonarCloud
+        SONAR_ORGANIZATION = 'tarea-jenkins-sonar-devops'              // Nombre de tu organización en SonarCloud
     }
     stages {
         stage('Checkout') {
