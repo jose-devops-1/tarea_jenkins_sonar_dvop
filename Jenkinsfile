@@ -70,12 +70,12 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t laboratorio-final-devops:1.0 .'
+                bat 'docker build -t laboratorio-final-devops:1.0 .'
             }
         }
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 8081:8081 --name laboratorio-final-devops:1.0'
+                bat 'docker run -d -p 8081:8081 --name laboratorio-final-devops:1.0'
              }
         }
     }
