@@ -75,7 +75,7 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
-                bat 'docker run -d -p 8081:8081 --name laboratorio-final-devops:1.0'
+                bat 'docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0'
              }
         }
     }
