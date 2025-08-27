@@ -15,20 +15,20 @@ jobs:
       - name: Limpiar contenedor previo si existe
         run: |
           docker stop laboratorio-final-devops 2>$null
-          if ($LASTEXITCODE -ne 0) { echo "No estaba corriendo" }
+          if ($LASTEXITCODE -ne 0) { Write-Output "No estaba corriendo" }
 
           docker rm laboratorio-final-devops 2>$null
-          if ($LASTEXITCODE -ne 0) { echo "No existía" }
-        shell: pwsh
+          if ($LASTEXITCODE -ne 0) { Write-Output "No existía" }
+        shell: powershell
 
       - name: Construir imagen
         run: docker build -t laboratorio-final-devops:1.0 .
-        shell: pwsh
+        shell: powershell
 
       - name: Ejecutar contenedor
         run: docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0
-        shell: pwsh
+        shell: powershell
 
       - name: Verificar contenedores activos
         run: docker ps -a
-        shell: pwsh
+        shell: powershell
