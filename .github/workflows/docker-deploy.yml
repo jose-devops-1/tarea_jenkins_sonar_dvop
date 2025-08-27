@@ -3,40 +3,40 @@ name: Docker Deploy (Windows)
 on:
   push:
     branches:
-      - joseortega   # tu rama de trabajo
+      - joseortega   # o la rama que quieras usar
 
 jobs:
   build-and-run:
-    runs-on: self-hosted   # tu runner local de Windows
+    runs-on: self-hosted   # tu runner local en Windows
+    defaults:
+      run:
+        shell: powershell
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
 
       - name: Limpiar contenedor previo si existe
-        shell: powershell
         run: |
           try {
-            docker stop laboratorio-final-devops -ErrorAction Stop
+            docker stop laboratorio-final-devops | Out-Null
             Write-Output "Contenedor detenido"
           } catch {
             Write-Output "No estaba corriendo"
           }
 
           try {
-            docker rm laboratorio-final-devops -ErrorAction Stop
+            docker rm laboratorio-final-devops | Out-Null
             Write-Output "Contenedor eliminado"
           } catch {
             Write-Output "No existía"
           }
 
       - name: Construir imagen
-        shell: powershell
         run: docker build -t laboratorio-final-devops:1.0 .
 
       - name: Ejecutar contenedor
-        shell: powershell
         run: docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0
 
       - name: Verificar contenedores activos
-        shell: powershell
         run: docker ps -a
