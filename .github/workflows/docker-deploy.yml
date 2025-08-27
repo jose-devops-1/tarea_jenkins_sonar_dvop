@@ -3,29 +3,32 @@ name: Docker Deploy (Windows)
 on:
   push:
     branches:
-      - joseortega   # rama que dispara el deploy
+      - joseortega   # tu rama personalizada
 
 jobs:
   build-and-run:
-    runs-on: self-hosted   # tu runner local de Windows
+    runs-on: self-hosted   # tu runner local en Windows
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
 
       - name: Limpiar contenedor previo si existe
         run: |
-          docker stop laboratorio-final-devops || echo "No estaba corriendo"
-          docker rm laboratorio-final-devops || echo "No existía"
-        shell: bash   # 👈 fuerza bash
+          docker stop laboratorio-final-devops 2>$null
+          if ($LASTEXITCODE -ne 0) { echo "No estaba corriendo" }
+
+          docker rm laboratorio-final-devops 2>$null
+          if ($LASTEXITCODE -ne 0) { echo "No existía" }
+        shell: pwsh
 
       - name: Construir imagen
         run: docker build -t laboratorio-final-devops:1.0 .
-        shell: bash   # 👈 fuerza bash
+        shell: pwsh
 
       - name: Ejecutar contenedor
         run: docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0
-        shell: bash   # 👈 fuerza bash
+        shell: pwsh
 
       - name: Verificar contenedores activos
         run: docker ps -a
-        shell: bash   # 👈 fuerza bash
+        shell: pwsh
