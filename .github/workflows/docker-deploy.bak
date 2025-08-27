@@ -3,11 +3,11 @@ name: Docker Deploy (Windows)
 on:
   push:
     branches:
-      - joseortega   # rama que dispara el deploy
+      - joseortega   # o la rama que quieras usar ..
 
 jobs:
   build-and-run:
-    runs-on: self-hosted   # tu runner local de Windows
+    runs-on: self-hosted   # usa tu runner local de Windows
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -16,16 +16,12 @@ jobs:
         run: |
           docker stop laboratorio-final-devops || echo "No estaba corriendo"
           docker rm laboratorio-final-devops || echo "No existía"
-        shell: bash   # 👈 fuerza bash
 
       - name: Construir imagen
         run: docker build -t laboratorio-final-devops:1.0 .
-        shell: bash   # 👈 fuerza bash
 
       - name: Ejecutar contenedor
         run: docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0
-        shell: bash   # 👈 fuerza bash
 
       - name: Verificar contenedores activos
         run: docker ps -a
-        shell: bash   # 👈 fuerza bash
