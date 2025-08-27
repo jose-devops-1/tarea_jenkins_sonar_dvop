@@ -3,7 +3,7 @@ name: Docker Deploy (Windows)
 on:
   push:
     branches:
-      - joseortega   # o la rama que quieras usar .
+      - joseortega   # o la rama que quieras usar ..
 
 jobs:
   build-and-run:
