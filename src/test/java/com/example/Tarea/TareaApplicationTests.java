@@ -9,7 +9,7 @@ public class TareaApplicationTests {
 
     @Test
     public void pruebaPaginaPrincipal() {
-        Configuration.headless = true; // Ejecuta sin abrir navegador .
+        Configuration.headless = true; // Ejecuta sin abrir navegador. .
         open("http://localhost:8081/");
         $("body").shouldHave(text("¡Aplicación operando correctamente! - DevOps -")); // Cambia "Bienvenido" por un texto de tu página
     }
