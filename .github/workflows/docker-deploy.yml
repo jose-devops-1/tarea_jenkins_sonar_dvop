@@ -3,11 +3,11 @@ name: Docker Deploy (Windows)
 on:
   push:
     branches:
-      - joseortega   # Cambia esto si tu rama principal es otra
+      - joseortega   # Cambia esto si tu rama principal es otra .
 
 jobs:
   build-and-run:
-    runs-on: self-hosted   # Usas tu runner local en Windows
+    runs-on: self-hosted   # Usas tu runner local en Windows .
     defaults:
       run:
         shell: powershell
