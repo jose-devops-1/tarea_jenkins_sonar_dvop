@@ -45,7 +45,8 @@ jobs:
       - name: Test automático con curl
         run: |
           Write-Output "Ejecutando prueba automática..." | Tee-Object -FilePath test-log.txt
-          curl -f http://localhost:8081/ || exit 1
+          Invoke-WebRequest -Uri http://localhost:8081/ -UseBasicParsing
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Subir logs como artefacto
         uses: actions/upload-artifact@v4
