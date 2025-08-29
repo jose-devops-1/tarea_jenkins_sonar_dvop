@@ -23,7 +23,6 @@
     <sonar.organization>tarea-jenkins-sonar-devops-key</sonar.organization>
   </properties>
 
-    <!-- ✅ Agregamos dependencyManagement -->
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -35,45 +34,70 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- runtime starter (opcional para que sea claramente un proyecto Spring Boot) -->
+    <!-- Spring Boot runtime -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
     </dependency>
 
-    <!-- test: incluye JUnit Jupiter, Mockito, etc. -->
+    <!-- Spring Boot web -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- Test: JUnit Jupiter, Mockito, etc. -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
 
-    <!-- web -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
     <!-- Selenide -->
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide</artifactId>
-      <version>7.10.0</version> <!-- Verifica la última versión -->
+      <version>7.10.0</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Spring Boot plugin -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <!-- Sonar plugin -->
       <plugin>
-          <groupId>org.sonarsource.scanner.maven</groupId>
-          <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.10.0.2594</version>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.10.0.2594</version>
+      </plugin>
+
+      <!-- Failsafe plugin: tests de integración -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+          <execution>
+            <id>integration-tests</id>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <!-- Carpeta de tests de integración -->
+          <testSourceDirectory>${project.basedir}/src/test-integration/java</testSourceDirectory>
+          <includes>
+            <include>**/*ApplicationTests.java</include>
+          </includes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
