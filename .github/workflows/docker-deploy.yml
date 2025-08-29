@@ -42,11 +42,16 @@ jobs:
           Write-Output "Esperando que la aplicación se inicie..." | Tee-Object -FilePath app-ready-log.txt
           Start-Sleep -Seconds 15
 
-      - name: Test automático con curl
+      - name: Probar aplicación con Invoke-WebRequest (PowerShell)
         run: |
           Write-Output "Ejecutando prueba automática..." | Tee-Object -FilePath test-log.txt
-          Invoke-WebRequest -Uri http://localhost:8081/ -UseBasicParsing
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          $response = Invoke-WebRequest -Uri http://localhost:8081/ -UseBasicParsing
+          if ($response.StatusCode -ne 200) {
+            Write-Output "Prueba fallida. Código: $($response.StatusCode)"
+            exit 1
+          } else {
+            Write-Output "Prueba exitosa. Código: $($response.StatusCode)"
+          }
 
       - name: Subir logs como artefacto
         uses: actions/upload-artifact@v4
