@@ -23,28 +23,28 @@ jobs:
 
       - name: Build JAR con Maven
         run: |
-          mvn clean package | Tee-Object -FilePath build-log.txt
+          mvn clean package
 
       - name: Construir imagen Docker
         run: |
-          docker build -t laboratorio-final-devops:1.0 . | Tee-Object -FilePath docker-build-log.txt
+          docker build -t laboratorio-final-devops:1.0 .
 
       - name: Ejecutar contenedor
         run: |
-          docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0 | Tee-Object -FilePath docker-run-log.txt
+          docker run -d -p 8081:8081 --name laboratorio-final-devops laboratorio-final-devops:1.0
 
       - name: Verificar contenedores activos
         run: |
-          docker ps -a | Tee-Object -FilePath docker-ps-log.txt
+          docker ps -a
 
       - name: Esperar a que la app esté lista
         run: |
-          Write-Output "Esperando que la aplicación se inicie..." | Tee-Object -FilePath app-ready-log.txt
+          Write-Output "Esperando que la aplicación se inicie..."
           Start-Sleep -Seconds 15
 
       - name: Probar aplicación con Invoke-WebRequest (PowerShell)
         run: |
-          Write-Output "Ejecutando prueba automática..." | Tee-Object -FilePath test-log.txt
+          Write-Output "Ejecutando prueba automática..."
           $response = Invoke-WebRequest -Uri http://localhost:8081/ -UseBasicParsing
           if ($response.StatusCode -ne 200) {
             Write-Output "Prueba fallida. Código: $($response.StatusCode)"
@@ -52,15 +52,3 @@ jobs:
           } else {
             Write-Output "Prueba exitosa. Código: $($response.StatusCode)"
           }
-
-      - name: Subir logs como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: deployment-logs
-          path: |
-            build-log.txt
-            docker-build-log.txt
-            docker-run-log.txt
-            docker-ps-log.txt
-            app-ready-log.txt
-            test-log.txt
