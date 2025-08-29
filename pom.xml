@@ -23,6 +23,17 @@
     <sonar.organization>tarea-jenkins-sonar-devops-key</sonar.organization>
   </properties>
 
+    <!-- ✅ Agregamos dependencyManagement -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.11.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <!-- runtime starter (opcional para que sea claramente un proyecto Spring Boot) -->
     <dependency>
@@ -47,7 +58,7 @@
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide</artifactId>
-      <version>6.18.0</version> <!-- Verifica la última versión -->
+      <version>7.10.0</version> <!-- Verifica la última versión -->
       <scope>test</scope>
     </dependency>
 
