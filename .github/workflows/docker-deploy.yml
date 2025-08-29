@@ -15,7 +15,12 @@ jobs:
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
-        
+
+      - name: Limpiar contenedor previo si existe
+        run: |
+          docker stop laboratorio-final-devops *>$null; if ($LASTEXITCODE -eq 0) { Write-Output "Contenedor detenido" } else { Write-Output "No estaba corriendo" }
+          docker rm laboratorio-final-devops *>$null; if ($LASTEXITCODE -eq 0) { Write-Output "Contenedor eliminado" } else { Write-Output "No existía" }
+
       - name: Build JAR con Maven
         run: |
           mvn clean package
