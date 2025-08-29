@@ -43,6 +43,14 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <!-- Selenide -->
+    <dependency>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>6.18.0</version> <!-- Verifica la última versión -->
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>

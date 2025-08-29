@@ -1,13 +1,16 @@
 package com.example.Tarea;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
 
-@SpringBootTest
-class TareaApplicationTests {
+public class TareaApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    public void pruebaPaginaPrincipal() {
+        Configuration.headless = true; // Ejecuta sin abrir navegador .
+        open("http://localhost:8081/");
+        $("body").shouldHave(text("¡Aplicación operando correctamente! - DevOps -")); // Cambia "Bienvenido" por un texto de tu página
+    }
 }

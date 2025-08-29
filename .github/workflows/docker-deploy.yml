@@ -42,13 +42,6 @@ jobs:
           Write-Output "Esperando que la aplicación se inicie..."
           Start-Sleep -Seconds 15
 
-      - name: Probar aplicación con Invoke-WebRequest (PowerShell)
+      - name: Probar aplicación con Selenide
         run: |
-          Write-Output "Ejecutando prueba automática..."
-          $response = Invoke-WebRequest -Uri http://localhost:8081/ -UseBasicParsing
-          if ($response.StatusCode -ne 200) {
-            Write-Output "Prueba fallida. Código: $($response.StatusCode)"
-            exit 1
-          } else {
-            Write-Output "Prueba exitosa. Código: $($response.StatusCode)"
-          }
+          mvn test -Dtest=com.example.Tarea.TareaApplicationTests
