@@ -44,4 +44,4 @@ jobs:
 
       - name: Probar aplicación con Selenide
         run: |
-          mvn -Dtest=com.example.Tarea.TareaApplicationTests test
+          mvn test -Dtest=com.example.Tarea.TareaApplicationTests
